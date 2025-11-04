@@ -1,0 +1,104 @@
+:root {
+  --bg: #0b0f14;
+  --panel: #0f141b;
+  --text: #e6f0ff;
+  --muted: #9fb3c8;
+  --accent: #2b6cb0;
+  --accent-contrast: #e6f0ff;
+  --input: #121823;
+  --border: #203042;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
+
+.layout {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+}
+
+.brand { font-weight: 700; letter-spacing: 0.3px; }
+
+.toggle {
+  background: var(--input);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.toggle:hover { filter: brightness(1.05); }
+
+.center-wrap {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.hero { text-align: center; }
+.hero-title {
+  margin: 0 0 8px;
+  font-size: 40px;
+  line-height: 1.1;
+  color: var(--accent);
+}
+.hero-subtitle { margin: 0; color: var(--muted); }
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.title { margin: 0 0 16px; font-size: 22px; }
+.subtitle { margin: -6px 0 16px; color: var(--muted); font-size: 14px; }
+
+.form { display: grid; gap: 12px; }
+.input {
+  background: var(--input);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 12px;
+}
+.input:focus { outline: 2px solid color-mix(in srgb, var(--accent) 50%, transparent); border-color: var(--accent); }
+.button {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: none;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+.button:disabled { opacity: 0.7; cursor: default; }
+.muted { color: var(--muted); }
+.link { color: var(--accent); text-decoration: none; }
+.error { color: #ff6b6b; }
+
+
