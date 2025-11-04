@@ -16,6 +16,11 @@ app.get('/api/health', (req, res) => {
   return res.json({ ok: true });
 });
 
+// API root
+app.get('/api', (req, res) => {
+  return res.json({ ok: true, name: 'Qverse API' });
+});
+
 // Routes
 app.use('/api/auth', authRouter);
 
