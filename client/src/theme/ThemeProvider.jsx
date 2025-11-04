@@ -9,7 +9,7 @@ const applyTheme = (theme) => {
     root.style.setProperty('--panel', '#0f141b');
     root.style.setProperty('--text', '#e6f0ff');
     root.style.setProperty('--muted', '#9fb3c8');
-    root.style.setProperty('--accent', '#2b6cb0'); /* blue */
+    root.style.setProperty('--accent', '#2b6cb0');
     root.style.setProperty('--accent-contrast', '#e6f0ff');
     root.style.setProperty('--input', '#121823');
     root.style.setProperty('--border', '#203042');
