@@ -16,7 +16,7 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl)
+    
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -28,20 +28,20 @@ app.use(
 );
 app.use(express.json());
 
-// Health check
+
 app.get('/api/health', (req, res) => {
   return res.json({ ok: true });
 });
 
-// API root
+
 app.get('/api', (req, res) => {
   return res.json({ ok: true, name: 'Qverse API' });
 });
 
-// Routes
+
 app.use('/api/auth', authRouter);
 
-// Start
+
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || '';
 
