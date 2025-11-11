@@ -50,7 +50,7 @@ function Home() {
         <div className="hero">
           <h1 className="hero-title">Welcome to Qverse</h1>
           {user ? (
-            <p className="hero-subtitle">Logged in as {user.name}. Use the toggle to switch theme.</p>
+            <p className="hero-subtitle">Logged in as {user.name}.share and grow your knowledge</p>
           ) : (
             <p className="hero-subtitle">
               <Link className="link" to="/login">Login</Link> or <Link className="link" to="/signup">Signup</Link>
