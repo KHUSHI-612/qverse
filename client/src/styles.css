@@ -52,6 +52,7 @@ body {
 .center-wrap {
   display: grid;
   place-items: center;
+  height: 100vh;
   padding: 24px;
 }
 

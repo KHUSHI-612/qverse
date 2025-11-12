@@ -1,21 +1,19 @@
-# OS
+
 .DS_Store
 
-# Node
+
 node_modules/
 
-# Build outputs
 dist/
 client/dist/
 server/dist/
 
-# Env files / secrets
 .env
 */.env
 server/.env
 client/.env
 
-# Logs
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
