@@ -4,7 +4,8 @@ export const API_BASE = import.meta.env.VITE_API_BASE || 'https://qverse-5.onren
 
 export const api = axios.create({
   baseURL: API_BASE,
-  headers: { 'Content-Type': 'application/json' }
+  headers: { 'Content-Type': 'application/json' },
+  timeout: 30000 
 });
 
 api.interceptors.request.use((config) => {

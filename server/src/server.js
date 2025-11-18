@@ -3,45 +3,29 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import authRouter from './routes/auth.js';
+import questionsRouter from './routes/questions.js';
+import profileRouter from './routes/profile.js';
+import answersRouter from './routes/answers.js';
 
 dotenv.config();
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://qverse-seven.vercel.app"
-];
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-    
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
+app.use(cors({ origin: process.env.CLIENT_ORIGIN || '*', credentials: true }));
 app.use(express.json());
 
-
+// Health check
 app.get('/api/health', (req, res) => {
   return res.json({ ok: true });
 });
 
-
-app.get('/api', (req, res) => {
-  return res.json({ ok: true, name: 'Qverse API' });
-});
-
-
+// Routes
 app.use('/api/auth', authRouter);
+app.use('/api/questions', questionsRouter);
+app.use('/api/profile', profileRouter);
+app.use('/api/answers', answersRouter);
 
-
+// Start
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || '';
 

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../service/api.js';
+import Header from '../components/Header.jsx';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -18,14 +19,21 @@ export default function Login() {
       localStorage.setItem('qverse_auth', JSON.stringify(data));
       navigate('/');
     } catch (err) {
-      setError(err?.response?.data?.message || 'Login failed');
+      console.error('Login error:', err);
+      if (err?.code === 'ERR_NETWORK' || err?.message?.includes('Network Error')) {
+        setError('Cannot connect to server. Make sure the backend is running.');
+      } else {
+        setError(err?.response?.data?.message || err?.message || 'Login failed');
+      }
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="center-wrap">
+    <div className="layout">
+      <Header />
+      <main className="center-wrap">
       <div className="card">
         <h2 className="title">Login</h2>
         <p className="subtitle">Welcome back! Enter your details to continue.</p>
@@ -39,6 +47,7 @@ export default function Login() {
           No account? <Link className="link" to="/signup">Create one</Link>
         </p>
       </div>
+      </main>
     </div>
   );
 }

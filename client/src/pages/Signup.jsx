@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../service/api.js';
+import Header from '../components/Header.jsx';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -19,14 +20,21 @@ export default function Signup() {
       localStorage.setItem('qverse_auth', JSON.stringify(data));
       navigate('/');
     } catch (err) {
-      setError(err?.response?.data?.message || 'Signup failed');
+      console.error('Signup error:', err);
+      if (err?.code === 'ERR_NETWORK' || err?.message?.includes('Network Error')) {
+        setError('Cannot connect to server. Make sure the backend is running.');
+      } else {
+        setError(err?.response?.data?.message || err?.message || 'Signup failed');
+      }
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="center-wrap">
+    <div className="layout">
+      <Header />
+      <main className="center-wrap">
       <div className="card">
         <h2 className="title">Create account</h2>
         <p className="subtitle">Join Qverse to ask questions and share answers.</p>
@@ -41,6 +49,7 @@ export default function Signup() {
           Have an account? <Link className="link" to="/login">Login</Link>
         </p>
       </div>
+      </main>
     </div>
   );
 }
