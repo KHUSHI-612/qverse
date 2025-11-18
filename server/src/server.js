@@ -11,8 +11,13 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_ORIGIN || '*', credentials: true }));
-app.use(express.json());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://qverse-seven.vercel.app'
+  ],
+  credentials: true
+}));
 
 // Health check.
 app.get('/api/health', (req, res) => {
