@@ -59,9 +59,9 @@ export default function FactsCarousel() {
 
     const animate = () => {
       scrollPositionRef.current += scrollSpeed;
-      
-      // Reset position when we've scrolled through one set of testimonials
-      if (scrollPositionRef.current >= cardWidth * testimonials.length) {
+
+      // Reset position when we've scrolled through one full set of facts
+      if (scrollPositionRef.current >= cardWidth * Facts.length) {
         scrollPositionRef.current = 0;
       }
 
