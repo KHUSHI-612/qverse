@@ -1,5 +1,3 @@
-import { useEffect, useRef } from 'react';
-
 const Facts = [
   {
     text: "The universe is not just expanding — it's accelerating faster than the speed of light itself.",
@@ -43,37 +41,10 @@ const Facts = [
   }
 ];
 
-// Duplicate testimonials for seamless loop
+// Duplicate list for seamless looping
 const duplicatedFacts = [...Facts, ...Facts];
 
 export default function FactsCarousel() {
-  const trackRef = useRef(null);
-  const scrollPositionRef = useRef(0);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    const cardWidth = 320; // Width of each card + gap
-    const scrollSpeed = 0.5; // Pixels per frame
-
-    const animate = () => {
-      scrollPositionRef.current += scrollSpeed;
-
-      // Reset position when we've scrolled through one full set of facts
-      if (scrollPositionRef.current >= cardWidth * Facts.length) {
-        scrollPositionRef.current = 0;
-      }
-
-      track.style.transform = `translateX(-${scrollPositionRef.current}px)`;
-      requestAnimationFrame(animate);
-    };
-
-    const animationId = requestAnimationFrame(animate);
-
-    return () => cancelAnimationFrame(animationId);
-  }, []);
-
   return (
     <div className="facts-carousel-container">
       <h2 style={{ textAlign: 'center', marginBottom: '40px', fontSize: '32px', color: 'var(--text)' }}>
@@ -83,13 +54,13 @@ export default function FactsCarousel() {
         Because the truth is crazier than fiction.
       </p>
       <div className="facts-carousel-wrapper">
-        <div className="facts-carousel-track" ref={trackRef}>
+        <div className="facts-carousel-track">
           {duplicatedFacts.map((fact, index) => (
-  <div key={index} className="fact-card-square">
-    <p className="fact-text">"{fact.text}"</p>
-    <div className="fact-author">
-      <p className="fact-name">{fact.name}</p>
-      <p className="fact-role">{fact.role}</p>
+            <div key={index} className="facts-card-square">
+              <p className="facts-text">"{fact.text}"</p>
+              <div className="facts-author">
+                <p className="facts-name">{fact.name}</p>
+                <p className="facts-role">{fact.role}</p>
               </div>
             </div>
           ))}
