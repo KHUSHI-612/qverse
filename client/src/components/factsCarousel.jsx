@@ -2,7 +2,7 @@ const Facts = [
   {
     text: "The universe is not just expanding — it's accelerating faster than the speed of light itself.",
     name: "Saul Perlmutter",
-    role: "Nobel Prize–Winning Astrophysicist"
+    role: "Nobel Prize Winning Astrophysicist"
   },
   {
     text: "The human brain generates enough electricity to power a small light bulb.",
