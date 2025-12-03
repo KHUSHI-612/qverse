@@ -106,5 +106,3 @@ router.delete('/:id', requireAuth, async (req, res) => {
 });
 
 export default router;
-
-

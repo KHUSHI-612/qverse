@@ -94,7 +94,7 @@ router.post('/:id/vote', requireAuth, async (req, res) => {
     const idx = (answer.votes || []).findIndex((v) => String(v.userId) === req.user.id);
     if (idx >= 0) {
       if (answer.votes[idx].value === value) {
-        // Same vote again -> remove (unvote)
+       
         answer.votes.splice(idx, 1);
       } else {
         answer.votes[idx].value = value;

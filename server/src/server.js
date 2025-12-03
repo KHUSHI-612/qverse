@@ -22,18 +22,18 @@ app.use(cors({
   credentials: true
 }));
 
-// Health check.
+
 app.get('/api/health', (req, res) => {
   return res.json({ ok: true });
 });
 
-// Routes
+
 app.use('/api/auth', authRouter);
 app.use('/api/questions', questionsRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/answers', answersRouter);
 
-// Start
+
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || '';
 

@@ -209,9 +209,3 @@ export default function AskQuestion() {
     </div>
   );
 }
-
-
-
-
-
-

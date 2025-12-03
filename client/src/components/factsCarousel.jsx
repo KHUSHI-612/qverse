@@ -41,7 +41,6 @@ const Facts = [
   }
 ];
 
-// Duplicate list for seamless looping
 const duplicatedFacts = [...Facts, ...Facts];
 
 export default function FactsCarousel() {
