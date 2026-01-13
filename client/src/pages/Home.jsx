@@ -18,7 +18,7 @@ export default function Home() {
       try {
         const parsed = JSON.parse(raw);
         setUser(parsed.user);
-      } catch {}
+      } catch { }
     }
   }, []);
 
@@ -52,7 +52,7 @@ export default function Home() {
         if (!list.length) {
           setRecentQuestion(null);
         } else {
-         
+
           const sorted = [...list].sort((a, b) => {
             if (!a.createdAt || !b.createdAt) return 0;
             return new Date(b.createdAt) - new Date(a.createdAt);
@@ -74,12 +74,12 @@ export default function Home() {
     <div className="layout">
       <Header />
       <main>
-       
+
         <div className="hero-video-container">
-          <video 
-            autoPlay 
-            loop 
-            muted 
+          <video
+            autoPlay
+            loop
+            muted
             playsInline
             className="hero-video"
           >
@@ -106,131 +106,110 @@ export default function Home() {
 
         <div style={{ padding: '40px 24px', maxWidth: '1200px', margin: '0 auto' }}>
 
-        {user && (
+          {user && (
+            <div style={{ marginBottom: '40px' }}>
+              <h2 style={{ margin: 0, fontSize: '24px', marginBottom: '24px' }}>Your Dashboard</h2>
+              <div className="card" style={{ maxWidth: '100%' }}>
+                <p className="muted">Hello, <strong>{user.name}</strong>! Ready to explore questions and answers.</p>
+                <div style={{ marginTop: '20px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+                  <div style={{ padding: '16px', background: 'var(--input)', borderRadius: '8px' }}>
+                    <h3 style={{ margin: '0 0 8px 0', fontSize: '18px', color: 'var(--accent)' }}>Questions</h3>
+                    <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold' }}>{stats.questionsCount}</p>
+                  </div>
+                  <div style={{ padding: '16px', background: 'var(--input)', borderRadius: '8px' }}>
+                    <h3 style={{ margin: '0 0 8px 0', fontSize: '18px', color: 'var(--accent)' }}>Answers</h3>
+                    <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold' }}>{stats.answersCount}</p>
+                  </div>
+                  <div style={{ padding: '16px', background: 'var(--input)', borderRadius: '8px' }}>
+                    <h3 style={{ margin: '0 0 8px 0', fontSize: '18px', color: 'var(--accent)' }}>Reputation</h3>
+                    <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold' }}>{stats.reputation}</p>
+                    <p className="muted" style={{ margin: '6px 0 0 0', fontSize: '13px' }}>
+                      Total upvotes on your answers
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+
+          <div className="ask-question-section">
+            <div className="ask-question-content">
+              <h2 className="ask-question-title">
+                Welcome to <span className="ask-question-highlight">Qverse's</span> own
+                <br />
+                <span className="ask-question-highlight">Question & Answer</span> Platform
+              </h2>
+              <p className="ask-question-subtitle">
+                Join thousands of learners asking questions, sharing knowledge, and discovering answers together.
+              </p>
+              {user ? (
+                <Link to="/ask" className="ask-question-button">
+                  Ask a Question
+                </Link>
+              ) : (
+                <Link to="/signup" className="ask-question-button">
+                  Get Started
+                </Link>
+              )}
+            </div>
+          </div>
+
+
+          <FactsCarousel />
+
+
           <div style={{ marginBottom: '40px' }}>
-            <h2 style={{ margin: 0, fontSize: '24px', marginBottom: '24px' }}>Your Dashboard</h2>
+            <h2 style={{ marginBottom: '24px', fontSize: '24px' }}>Recent Questions</h2>
             <div className="card" style={{ maxWidth: '100%' }}>
-              <p className="muted">Hello, <strong>{user.name}</strong>! Ready to explore questions and answers.</p>
-              <div style={{ marginTop: '20px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
-                <div style={{ padding: '16px', background: 'var(--input)', borderRadius: '8px' }}>
-                  <h3 style={{ margin: '0 0 8px 0', fontSize: '18px', color: 'var(--accent)' }}>Questions</h3>
-                  <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold' }}>{stats.questionsCount}</p>
-                </div>
-                <div style={{ padding: '16px', background: 'var(--input)', borderRadius: '8px' }}>
-                  <h3 style={{ margin: '0 0 8px 0', fontSize: '18px', color: 'var(--accent)' }}>Answers</h3>
-                  <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold' }}>{stats.answersCount}</p>
-                </div>
-                <div style={{ padding: '16px', background: 'var(--input)', borderRadius: '8px' }}>
-                  <h3 style={{ margin: '0 0 8px 0', fontSize: '18px', color: 'var(--accent)' }}>Reputation</h3>
-                  <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold' }}>{stats.reputation}</p>
-                  <p className="muted" style={{ margin: '6px 0 0 0', fontSize: '13px' }}>
-                    Total upvotes on your answers
+              {recentLoading ? (
+                <p className="muted" style={{ textAlign: 'center', padding: '40px 0' }}>
+                  Loading recent question...
+                </p>
+              ) : recentError ? (
+                <p className="error" style={{ textAlign: 'center', padding: '40px 0' }}>{recentError}</p>
+              ) : !recentQuestion ? (
+                <p className="muted" style={{ textAlign: 'center', padding: '40px 0' }}>
+                  No questions yet.{' '}
+                  {user ? (
+                    <Link to="/ask" className="link">Be the first to ask!</Link>
+                  ) : (
+                    <> <Link to="/signup" className="link">Sign up</Link> to start asking questions.</>
+                  )}
+                </p>
+              ) : (
+                <div style={{ padding: '20px' }}>
+                  <h3 style={{ marginTop: 0, marginBottom: '8px', fontSize: '18px' }}>
+                    <Link to={`/question/${recentQuestion.id}`} className="link" style={{ fontSize: 'inherit' }}>
+                      {recentQuestion.title}
+                    </Link>
+                  </h3>
+                  {recentQuestion.body ? (
+                    <p className="muted" style={{ marginTop: 0, marginBottom: '12px', whiteSpace: 'pre-wrap' }}>
+                      {recentQuestion.body.length > 180
+                        ? `${recentQuestion.body.slice(0, 180)}...`
+                        : recentQuestion.body}
+                    </p>
+                  ) : null}
+                  <p className="muted" style={{ margin: 0, fontSize: '13px' }}>
+                    Asked by {recentQuestion.userName}{' '}
+                    {recentQuestion.createdAt
+                      ? `· ${new Date(recentQuestion.createdAt).toLocaleString()}`
+                      : null}
                   </p>
                 </div>
-              </div>
+              )}
             </div>
           </div>
-        )}
 
-   
-        <div className="ask-question-section">
-          <div className="ask-question-content">
-            <h2 className="ask-question-title">
-              Welcome to <span className="ask-question-highlight">Qverse's</span> own
-              <br />
-              <span className="ask-question-highlight">Question & Answer</span> Platform
-            </h2>
-            <p className="ask-question-subtitle">
-              Join thousands of learners asking questions, sharing knowledge, and discovering answers together.
-            </p>
-            {user ? (
-              <Link to="/ask" className="ask-question-button">
-                Ask a Question
-              </Link>
-            ) : (
-              <Link to="/signup" className="ask-question-button">
-                Get Started
-              </Link>
-            )}
-          </div>
-        </div>
 
-    
-        <FactsCarousel />
-
-       
-        <div style={{ marginBottom: '40px' }}>
-          <h2 style={{ marginBottom: '24px', fontSize: '24px' }}>Recent Questions</h2>
-          <div className="card" style={{ maxWidth: '100%' }}>
-            {recentLoading ? (
-              <p className="muted" style={{ textAlign: 'center', padding: '40px 0' }}>
-                Loading recent question...
+          {!user && (
+            <div style={{ textAlign: 'center', marginTop: '40px', paddingBottom: '40px' }}>
+              <p className="muted">
+                <Link to="/about" className="link">Learn more about Qverse</Link>
               </p>
-            ) : recentError ? (
-              <p className="error" style={{ textAlign: 'center', padding: '40px 0' }}>{recentError}</p>
-            ) : !recentQuestion ? (
-              <p className="muted" style={{ textAlign: 'center', padding: '40px 0' }}>
-                No questions yet.{' '}
-                {user ? (
-                  <Link to="/ask" className="link">Be the first to ask!</Link>
-                ) : (
-                  <> <Link to="/signup" className="link">Sign up</Link> to start asking questions.</>
-                )}
-              </p>
-            ) : (
-              <div style={{ padding: '20px' }}>
-                <h3 style={{ marginTop: 0, marginBottom: '8px', fontSize: '18px' }}>
-                  <Link to={`/question/${recentQuestion.id}`} className="link" style={{ fontSize: 'inherit' }}>
-                    {recentQuestion.title}
-                  </Link>
-                </h3>
-                {recentQuestion.body ? (
-                  <p className="muted" style={{ marginTop: 0, marginBottom: '12px', whiteSpace: 'pre-wrap' }}>
-                    {recentQuestion.body.length > 180
-                      ? `${recentQuestion.body.slice(0, 180)}...`
-                      : recentQuestion.body}
-                  </p>
-                ) : null}
-                <p className="muted" style={{ margin: 0, fontSize: '13px' }}>
-                  Asked by {recentQuestion.userName}{' '}
-                  {recentQuestion.createdAt
-                    ? `· ${new Date(recentQuestion.createdAt).toLocaleString()}`
-                    : null}
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-
-      
-        {!user && (
-          <div>
-            <h2 style={{ marginBottom: '24px', fontSize: '24px', textAlign: 'center' }}>Why Qverse?</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-              <div className="card" style={{ maxWidth: '100%' }}>
-                <div style={{ fontSize: '32px', marginBottom: '12px' }}>❓</div>
-                <h3 style={{ marginTop: 0, marginBottom: '12px', color: 'var(--accent)', fontSize: '20px' }}>Ask Questions</h3>
-                <p className="muted" style={{ margin: 0, lineHeight: '1.6' }}>
-                  Get answers from the community on any topic. Ask technical questions, seek advice, or explore new ideas.
-                </p>
-              </div>
-              <div className="card" style={{ maxWidth: '100%' }}>
-                <div style={{ fontSize: '32px', marginBottom: '12px' }}>💡</div>
-                <h3 style={{ marginTop: 0, marginBottom: '12px', color: 'var(--accent)', fontSize: '20px' }}>Share Knowledge</h3>
-                <p className="muted" style={{ margin: 0, lineHeight: '1.6' }}>
-                  Help others by providing detailed, well-explained answers. Build your reputation as a knowledge contributor.
-                </p>
-              </div>
-              <div className="card" style={{ maxWidth: '100%' }}>
-                <div style={{ fontSize: '32px', marginBottom: '12px' }}>👍</div>
-                <h3 style={{ marginTop: 0, marginBottom: '12px', color: 'var(--accent)', fontSize: '20px' }}>Vote & Discuss</h3>
-                <p className="muted" style={{ margin: 0, lineHeight: '1.6' }}>
-                  Upvote helpful content, engage in discussions, and discover the best answers through community voting.
-                </p>
-              </div>
             </div>
-          </div>
-        )}
+          )}
         </div>
       </main>
     </div>
