@@ -1,13 +1,26 @@
+import { useEffect, useState } from 'react';
 import Header from '../components/Header.jsx';
 import { Link } from 'react-router-dom';
 
 export default function About() {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const raw = localStorage.getItem('qverse_auth');
+        if (raw) {
+            try {
+                const parsed = JSON.parse(raw);
+                setUser(parsed.user);
+            } catch { }
+        }
+    }, []);
+
     return (
         <div className="layout">
             <Header />
             <main style={{ padding: '60px 24px', maxWidth: '800px', margin: '0 auto', fontFamily: 'var(--font-sans)' }}>
 
-                {/* Hero Section */}
+
                 <section style={{ marginBottom: '60px', textAlign: 'center' }}>
                     <h1 style={{ fontSize: '48px', fontWeight: '800', marginBottom: '24px', letterSpacing: '-1px' }}>
                         Welcome to <span style={{ color: 'var(--accent)' }}>Qverse</span>
@@ -32,7 +45,7 @@ export default function About() {
                     </p>
                 </section>
 
-                {/* How it Works */}
+
                 <section style={{ marginBottom: '60px' }}>
                     <h2 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '30px', borderBottom: '2px solid var(--border)', paddingBottom: '10px' }}>
                         How It Works
@@ -71,21 +84,23 @@ export default function About() {
                     </div>
                 </section>
 
-                {/* Call to Action */}
-                <section style={{ textAlign: 'center', padding: '40px', background: 'var(--input)', borderRadius: '16px' }}>
-                    <h2 style={{ fontSize: '28px', fontWeight: '700', marginBottom: '16px' }}>Ready to join the conversation?</h2>
-                    <p style={{ fontSize: '18px', color: 'var(--muted)', marginBottom: '30px' }}>
-                        Join thousands of developers and enthusiasts sharing knowledge today.
-                    </p>
-                    <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
-                        <Link to="/signup" className="button" style={{ textDecoration: 'none', padding: '12px 32px', fontSize: '18px' }}>
-                            Get Started
-                        </Link>
-                        <Link to="/login" style={{ textDecoration: 'none', padding: '12px 32px', fontSize: '18px', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: '8px' }}>
-                            Login
-                        </Link>
-                    </div>
-                </section>
+
+                {!user && (
+                    <section style={{ textAlign: 'center', padding: '40px', background: 'var(--input)', borderRadius: '16px' }}>
+                        <h2 style={{ fontSize: '28px', fontWeight: '700', marginBottom: '16px' }}>Ready to join the conversation?</h2>
+                        <p style={{ fontSize: '18px', color: 'var(--muted)', marginBottom: '30px' }}>
+                            Join thousands of developers and enthusiasts sharing knowledge today.
+                        </p>
+                        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
+                            <Link to="/signup" className="button" style={{ textDecoration: 'none', padding: '12px 32px', fontSize: '18px' }}>
+                                Get Started
+                            </Link>
+                            <Link to="/login" style={{ textDecoration: 'none', padding: '12px 32px', fontSize: '18px', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: '8px' }}>
+                                Login
+                            </Link>
+                        </div>
+                    </section>
+                )}
 
             </main>
         </div>

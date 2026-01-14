@@ -1,58 +1,65 @@
-# Qverse (Auth-only minimal)
+# Qverse
 
-Working Signup + Login using MongoDB, JWT, React, Vite, Express.
+Qverse is a community-driven Q&A platform designed for developers to share knowledge, ask questions, and collaborate. Built with the MERN stack.
 
-## What you get
-- Backend: Node.js + Express + Mongoose + JWT
-- Frontend: React + Vite with Login and Signup pages
+## 🚀 Features
 
-## Do I need to download MongoDB?
-No, you can use MongoDB Atlas (free cloud) so you don't need to install MongoDB locally. If you prefer local, install MongoDB Community Server and set `MONGO_URI` to your local connection string (e.g. `mongodb://localhost:27017/qverse`).
+- **User Authentication**: Secure Sign Up & Login.
+- **Ask & Answer**: Create questions, provide answers.
+- **Profile Management**: Manage user profiles.
+- **Modern UI**: built with React and Vite.
 
-### MongoDB Atlas (recommended)
-1. Create an account at https://www.mongodb.com/atlas/database
-2. Create a free cluster.
-3. Create a database user (username/password) and allow access from your IP (or 0.0.0.0/0 for development).
-4. Get your connection string (starts with `mongodb+srv://...`).
-5. Replace `<username>`, `<password>`, and `<dbname>`.
+## 🛠️ Tech Stack
 
-## Setup
+- **Frontend**: React, Vite, React Router, Axios
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB, Mongoose
+- **Authentication**: JWT
 
-### 1) Backend
+## 🏁 Getting Started
+
+### Prerequisites
+
+- Node.js (v16+)
+- MongoDB (Atlas or Local)
+
+### 1️⃣ Backend Setup
+
 ```bash
 cd server
-cp ENV_EXAMPLE.txt .env  # then edit .env
-# Edit MONGO_URI to your Atlas connection string
-# Set JWT_SECRET to a long random string
 npm install
-npm run start
 ```
-- Server runs on http://localhost:5000
-- Health check: GET http://localhost:5000/api/health
 
-### 2) Frontend
+Create a `.env` file in the `server` directory. You will need to define the following variables:
+- `PORT` (e.g., 5000)
+- `MONGO_URI` (Your MongoDB connection string)
+- `JWT_SECRET` (A secure secret key for signing tokens)
+
+Start the server:
+
 ```bash
-cd ../client
-npm install
 npm run dev
 ```
-- App runs on http://localhost:5173
-- Env (optional): create `.env` and set `VITE_API_BASE=http://localhost:5000/api`
 
-## API Endpoints
-- POST `/api/auth/signup` → { name, email, password }
-- POST `/api/auth/login` → { email, password }
-- Response: `{ token, user: { id, name, email, role } }`
+### 2️⃣ Frontend Setup
 
-## File Layout
-- `server/src/routes/auth.js`: signup/login routes
-- `server/src/models/User.js`: Mongoose User model
-- `server/src/server.js`: Express app, CORS, Mongo connection
-- `client/src/pages/Signup.jsx` & `Login.jsx`: Auth pages
-- `client/src/service/api.js`: Axios instance
+```bash
+cd client
+npm install
+```
 
-## Notes
-- Token is stored in `localStorage` under `qverse_auth`.
-- CORS is enabled for `http://localhost:5173` by default.
+(Optional) Create a `.env` file in `client` if you need to configure the API base URL:
+- `VITE_API_BASE` (Defaults to the backend URL)
 
+Start the app:
 
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`.
+
+## 📂 Project Structure
+
+- `client/`: React frontend
+- `server/`: Express backend
